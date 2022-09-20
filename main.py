@@ -3,6 +3,7 @@ from random import randrange
 
 win = tk.Tk()
 canvas = tk.Canvas(win, height = 450, width = 600, bg= "black" )
+canvas.place(x=500, y=100)
 canvas.pack()
 
 
@@ -14,8 +15,16 @@ pic_voda = tk.PhotoImage(file = "images\ostrov3.png")
 b_kruh = tk.PhotoImage(file = "images\ostrov_kruh0.png")
 h_kruh = tk.PhotoImage(file = "images\ostrov_kruh1.png")
 
-def callback():
-    print("yup")
+def klik(e):
+    print("klik klik")
+    idecko = canvas.find_withtag("current")[0]
+    if canvas.itemcget(idecko,"tag") == "voda":
+        canvas.delete(idecko)
+    print(idecko)
+
+def dze_si(e):
+    print("tu som",e.x, e.y)
+
 
 def zmen_kruh():
     global kruh, mom_blue
@@ -28,20 +37,27 @@ def zmen_kruh():
 
 kruh = tk.Button(image=b_kruh, command=zmen_kruh, borderwidth=0)
 
+#tag_binfd a also tagy existuju
+
 def make_a_scene():
     global zem
     m = randrange(4,7)
     n = randrange(3,10)
-    for stlp in range(0,n+1):
-        for riadok in range(0, m+1):
+    for stlp in range(n):
+        for riadok in range(m):
             if randrange(5) == 2:
-                temp = canvas.create_image(50 * riadok, 50*stlp, anchor= "nw", image = pic_zem)
+                temp = canvas.create_image(50 * riadok, 50*stlp, anchor= "nw", image = pic_zem,tag = "zem_zase")
                 zem.append(temp)
             else:
-                temp = canvas.create_image(50 * riadok, 50*stlp, anchor= "nw", image = pic_voda)
+                temp = canvas.create_image(50 * riadok, 50*stlp, anchor= "nw", image = pic_voda, tag = "voda")
                 voda.append(temp)
     kruh.place(x=500, y=100)
-canvas.bind("<Button-1>", callback())
 
 make_a_scene()
+
+win.bind("<Button-1>", klik)
+win.bind("<Motion>", dze_si)
+
 win.mainloop()
+
+#hello
