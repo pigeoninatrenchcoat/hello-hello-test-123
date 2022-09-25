@@ -18,7 +18,7 @@ h_kruh = tk.PhotoImage(file = "images\ostrov_kruh1.png")
 v_most = tk.PhotoImage(file = "images\ostrov1.png")
 z_most = tk.PhotoImage(file = "images\ostrov2.png")
 
-penaze = 100
+penaze = 150
 
 def klik(e):
     global penaze,money
